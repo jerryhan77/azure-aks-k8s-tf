@@ -24,7 +24,7 @@ variable resource_group_name {
 
 variable location {
   description = "azure location to deploy resources"
-  default     = "westeurope"
+  default     = "japaneast"
 }
 
 variable log_analytics_workspace_name {
@@ -33,7 +33,7 @@ variable log_analytics_workspace_name {
 
 # refer https://azure.microsoft.com/global-infrastructure/services/?products=monitor for log analytics available regions
 variable log_analytics_workspace_location {
-  default = "eastus"
+  default = "japaneast"
 }
 
 # refer https://azure.microsoft.com/pricing/details/monitor/ for log analytics pricing
