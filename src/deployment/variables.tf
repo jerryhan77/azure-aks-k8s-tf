@@ -9,17 +9,17 @@ variable "node_count" {
 
 variable "dns_prefix" {
   description = "DNS Suffix"
-  default     = "runitoncloud"
+  default     = "rockit"
 }
 
 variable cluster_name {
   description = "AKS cluster name"
-  default     = "runItOnCloud"
+  default     = "rockit"
 }
 
 variable resource_group_name {
   description = "name of the resource group to deploy AKS cluster in"
-  default     = "runitoncloud"
+  default     = "rockit"
 }
 
 variable location {
@@ -43,32 +43,32 @@ variable log_analytics_workspace_sku {
 
 variable subnet_name {
   description = "subnet id where the nodes will be deployed"
-  default     = "runitoncloud-subnet"
+  default     = "rockit-subnet"
 }
 
 variable vnet_name {
   description = "vnet id where the nodes will be deployed"
-  default     = "runitoncloud-vnet"
+  default     = "rockit-vnet"
 }
 
 variable subnet_cidr {
   description = "the subnet cidr range"
-  default     = "10.2.32.0/21"
+  default     = ["10.2.32.0/21"]
 }
 
 variable kubernetes_version {
   description = "version of the kubernetes cluster"
-  default     = "1.16.10"
+  default     = "1.18.14"
 }
 
 variable "vm_size" {
   description = "size/type of VM to use for nodes"
-  default     = "Standard_D2_v2"
+  default     = "Standard_DS2_v2"
 }
 
 variable "os_disk_size_gb" {
   description = "size of the OS disk to attach to the nodes"
-  default     = 512
+  default     = 128
 }
 
 variable "max_pods" {
@@ -88,16 +88,3 @@ variable "max_count" {
   default     = 2
   description = "Maximum Node Count"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
