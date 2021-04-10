@@ -58,7 +58,7 @@ variable "max_pods" {
 #Network Profile config
 variable "network_plugin" {
   description = "network plugin for kubenretes network overlay (azure or calico)"
-  default     = "azure"
+  default     = "kubenet"
 }
 
 variable "service_cidr" {
@@ -91,10 +91,10 @@ variable "default_pool_type" {
   description = "type of the agent pool (AvailabilitySet and VirtualMachineScaleSets)"
   default     = "VirtualMachineScaleSets"
 }
-
-
-
-
-
-
-
+variable "availability_zones" {
+  description = "A list of Availability Zones across which the Node Pool should be spread. Changing this forces a new resource to be created."
+  default     = ["1", "2"]
+}
+variable "api_ip_ranges" {
+  description = "The IP ranges to whitelist for incoming traffic to the masters"
+}

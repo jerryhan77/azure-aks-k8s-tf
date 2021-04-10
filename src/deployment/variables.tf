@@ -2,6 +2,11 @@ variable "client_id" {}
 
 variable "client_secret" {}
 
+variable "dns_zone" {
+  description = "DNS Zone"
+  default     = "azure.liandisys.com.cn"
+}
+
 variable "node_count" {
   description = "number of nodes to deploy"
   default     = 2
@@ -87,4 +92,26 @@ variable "min_count" {
 variable "max_count" {
   default     = 2
   description = "Maximum Node Count"
+}
+variable "availability_zones" {
+  description = "A list of Availability Zones across which the Node Pool should be spread. Changing this forces a new resource to be created."
+  default     = ["1", "2"]
+}
+variable "api_ip_ranges" {
+  description = "The IP ranges to whitelist for incoming traffic to the masters"
+  default     = [
+                "153.150.79.112/32",
+                "58.213.92.96/29",
+                "58.222.225.208/29",
+                "223.112.10.160/29"
+            ]
+}
+variable "acr_ip_ranges" {
+  description = "The IP ranges to whitelist for incoming traffic to the acr"
+  default     = [
+                "153.150.79.112/32",
+                "58.213.92.96/29",
+                "58.222.225.208/29",
+                "223.112.10.160/29"
+            ]
 }

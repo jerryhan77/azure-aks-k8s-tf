@@ -5,6 +5,42 @@ resource "azurerm_resource_group" "aks" {
   location = var.location
 }
 
+resource "azurerm_dns_zone" "azure-liandisys" {
+  name                = var.dns_zone
+  resource_group_name = azurerm_resource_group.aks.name
+}
+
+resource "azurerm_dns_a_record" "ingress" {
+  name                = "*"
+  zone_name           = azurerm_dns_zone.azure-liandisys.name
+  resource_group_name = azurerm_resource_group.aks.name
+  ttl                 = 300
+  records             = ["20.43.88.131"]
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                     = "liandisys"
+  resource_group_name      = azurerm_resource_group.aks.name
+  location                 = azurerm_resource_group.aks.location
+  sku                      = "Premium"
+  admin_enabled            = false
+
+  network_rule_set {
+    default_action = "Deny"
+    virtual_network {
+      action = "Allow"
+      subnet_id = module.aks_network.aks_subnet_id
+    }
+
+    ip_rule = [
+      for ip_range in var.acr_ip_ranges : {
+        action   = "Allow"
+        ip_range = ip_range
+      }
+    ]
+  }
+}
+
 # AKS Cluster Network
 
 module "aks_network" {
@@ -54,6 +90,8 @@ module "aks_cluster" {
   client_id                = module.aks_identities.cluster_client_id
   client_secret            = module.aks_identities.cluster_sp_secret
   diagnostics_workspace_id = module.log_analytics.azurerm_log_analytics_workspace
+  availability_zones       = var.availability_zones
+  api_ip_ranges            = var.api_ip_ranges
 }
 
 

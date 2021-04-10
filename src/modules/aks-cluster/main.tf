@@ -4,6 +4,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.kubernetes_version
+  api_server_authorized_ip_ranges = var.api_ip_ranges
 
   default_node_pool {
     name            = var.default_pool_name
@@ -14,9 +15,10 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     max_pods        = var.max_pods
     type            = var.default_pool_type
 
-    enable_auto_scaling = true
-    min_count           = var.min_count
-    max_count           = var.max_count
+    enable_auto_scaling = false
+    #min_count           = var.min_count
+    #max_count           = var.max_count
+    availability_zones = var.availability_zones
 
     tags = merge(
     {
@@ -42,13 +44,23 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     client_secret = var.client_secret
   }
 
+  addon_profile {
+    http_application_routing {
+      enabled     = true
+    }
+
+    kube_dashboard {
+      enabled     = true
+    }
+  }
+
 
  tags = {
         Environment = "Development"
     }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
@@ -62,6 +74,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
     enabled  = true
 
     retention_policy {
+      days = 0
       enabled = false
     }
   }
@@ -71,6 +84,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
     enabled  = true
 
     retention_policy {
+      days = 0
       enabled = false
     }
   }
@@ -80,6 +94,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
     enabled  = true
 
     retention_policy {
+      days = 0
       enabled = false
     }
   }
@@ -89,6 +104,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
     enabled  = true
 
     retention_policy {
+      days = 0
       enabled = false
     }
   }
@@ -98,6 +114,7 @@ resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
     enabled  = true
 
     retention_policy {
+      days = 0
       enabled = false
     }
   }
