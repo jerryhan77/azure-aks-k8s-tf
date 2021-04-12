@@ -98,3 +98,11 @@ variable "availability_zones" {
 variable "api_ip_ranges" {
   description = "The IP ranges to whitelist for incoming traffic to the masters"
 }
+variable "http_application_routing" {
+  description = "Is HTTP Application Routing Enabled?"
+  default     = false
+}
+variable "kube_dashboard" {
+  description = "Is Kube-dashboard Enabled?"
+  default     = false
+}

@@ -15,7 +15,21 @@ resource "azurerm_dns_a_record" "ingress" {
   zone_name           = azurerm_dns_zone.azure-liandisys.name
   resource_group_name = azurerm_resource_group.aks.name
   ttl                 = 300
-  records             = ["20.43.88.131"]
+  #records             = ["20.44.139.163"]
+  records             = [ azurerm_public_ip.ingress_lb.ip_address ]
+}
+
+resource "azurerm_public_ip" "ingress_lb" {
+  name                = "ingress_lb_ip"
+  resource_group_name = module.aks_cluster.azurerm_kubernetes_cluster_node_resource_group
+  location            = azurerm_resource_group.aks.location
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  domain_name_label   = "azure-ingress"
+
+  tags = {
+    environment = "Development"
+  }
 }
 
 resource "azurerm_container_registry" "acr" {
