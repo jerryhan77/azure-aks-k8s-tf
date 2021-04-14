@@ -13,3 +13,8 @@ output "azurerm_kubernetes_cluster_name" {
 output "azurerm_kubernetes_cluster_node_resource_group" {
   value = azurerm_kubernetes_cluster.cluster.node_resource_group
 }
+
+output "kube_config" {
+  value = azurerm_kubernetes_cluster.cluster.kube_config
+  sensitive = true
+}

@@ -25,7 +25,7 @@ resource "azurerm_public_ip" "ingress_lb" {
   location            = azurerm_resource_group.aks.location
   allocation_method   = "Static"
   sku                 = "Standard"
-  domain_name_label   = "azure-ingress"
+  domain_name_label   = var.domain_name_label
 
   tags = {
     environment = "Development"

@@ -115,3 +115,13 @@ variable "acr_ip_ranges" {
                 "223.112.10.160/29"
             ]
 }
+
+variable "ingress_namespace" {
+  description = "namespace of ingress controller"
+  default     = "ingress-basic"
+}
+
+variable "domain_name_label" {
+  description = "dns name of ingress lb public ip"
+  default     = "azure-ingress"
+}
